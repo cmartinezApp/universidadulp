@@ -27,11 +27,22 @@ public class Conexion {
                 connection = DriverManager
                         .getConnection(URL + DB + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + USUARIO + "&password=" + PASSWORD);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,"Error al conectarse a la Base de Datos "+ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al conectarse a la Base de Datos " + ex.getMessage());
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null,"Error al cargar los Drivers de la Base de Datos "+ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al cargar los Drivers de la Base de Datos " + ex.getMessage());
             }
         }
         return connection;
+    }
+
+    public static void cerrarConexion() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println("Error cerrando la conexion");
+        } finally{
+            System.out.println("Conexión a Base de Datos cerrada.");
+        }
+
     }
 }
