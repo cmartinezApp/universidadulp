@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 13-09-2023 a las 13:22:57
+-- Tiempo de generación: 13-09-2023 a las 18:43:43
 -- Versión del servidor: 8.1.0
 -- Versión de PHP: 8.2.10
 
@@ -71,14 +71,14 @@ CREATE TABLE `materia` (
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`dni`),
-  ADD UNIQUE KEY `idAlumno` (`idAlumno`);
+  ADD KEY `idAlumno` (`idAlumno`);
 
 --
 -- Indices de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
   ADD PRIMARY KEY (`idInscripcion`),
-  ADD UNIQUE KEY `idAlumno` (`idAlumno`,`idMateria`),
+  ADD KEY `idAlumno` (`idAlumno`,`idMateria`),
   ADD KEY `idMateria` (`idMateria`);
 
 --
@@ -86,8 +86,29 @@ ALTER TABLE `inscripcion`
 --
 ALTER TABLE `materia`
   ADD PRIMARY KEY (`nombre`),
-  ADD UNIQUE KEY `idMateria` (`idMateria`),
-  ADD UNIQUE KEY `idMateria_2` (`idMateria`);
+  ADD KEY `idMateria` (`idMateria`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `alumno`
+--
+ALTER TABLE `alumno`
+  MODIFY `idAlumno` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `inscripcion`
+--
+ALTER TABLE `inscripcion`
+  MODIFY `idInscripcion` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `idMateria` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -97,8 +118,8 @@ ALTER TABLE `materia`
 -- Filtros para la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  ADD CONSTRAINT `inscripcion_ibfk_1` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`),
-  ADD CONSTRAINT `inscripcion_ibfk_2` FOREIGN KEY (`idMateria`) REFERENCES `materia` (`idMateria`);
+  ADD CONSTRAINT `inscripcion_ibfk_1` FOREIGN KEY (`idMateria`) REFERENCES `materia` (`idMateria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inscripcion_ibfk_2` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

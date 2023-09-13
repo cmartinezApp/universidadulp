@@ -1,7 +1,7 @@
 package Entidades;
 
 public class Materia {
-    
+
     private int idMateria;
     private String nombre;
     private int anioMateria;
@@ -59,6 +59,5 @@ public class Materia {
     public String toString() {
         return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + ", anioMateria=" + anioMateria + ", estado=" + estado + '}';
     }
-    
-    
+
 }
