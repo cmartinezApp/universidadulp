@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Entidades">
+  <ClassDiagramComponents>
+    <Class name="Alumno" package="" visibility="public" isStatic="true" xPosition="60.0" yPosition="41.0">
+      <Fields>
+        <Field name="Int" type="idAlumno" visibility="private"/>
+        <Field name="Int" type="dni" visibility="private"/>
+        <Field name="String" type="apellido" visibility="private"/>
+        <Field name="String" type="nombre" visibility="private"/>
+        <Field name="LocalDate" type="fechaDeNaciemiento" visibility="private"/>
+        <Field name="Boolean" type="estado" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="Alumno" returnType="boolean" visibility="public">
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="dni"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="LocalDate" name="fechaDeNaciemiento"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="Alumno" returnType="boolean" visibility="public">
+          <Argument type="int" name="dni"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="LocalDate" name="fechaDeNaciemiento"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="setMethod" returnType="void" visibility="public"/>
+        <Method name="getMethod" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Inscripcion" package="" visibility="public" isStatic="true" xPosition="384.0" yPosition="424.0">
+      <Fields>
+        <Field name="Int" type="idInscripcion" visibility="private"/>
+        <Field name="Int" type="anio" visibility="private"/>
+        <Field name="Int" type="idAlumno" visibility="private"/>
+        <Field name="Int" type="idMateria" visibility="private"/>
+        <Field name="Boolean" type="estado" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="Inscripcion" returnType="void" visibility="public">
+          <Argument type="int" name="idInscripcion"/>
+          <Argument type="int" name="anio"/>
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="idMateria"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="Inscripcion" returnType="void" visibility="public">
+          <Argument type="int" name="anio"/>
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="idMateria"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="setMethod" returnType="void" visibility="public"/>
+        <Method name="getMethod" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Materia" package="" visibility="public" isStatic="true" xPosition="654.0" yPosition="41.0">
+      <Fields>
+        <Field name="Int" type="idMateria" visibility="private"/>
+        <Field name="String" type="nombre" visibility="private"/>
+        <Field name="Int" type="anio" visibility="private"/>
+        <Field name="Boolean" type="estado" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="Materia" returnType="void" visibility="public">
+          <Argument type="int" name="idMateria"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="anio"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="Materia" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="anio"/>
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="setMethod" returnType="void" visibility="public"/>
+        <Method name="getMethod" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tiene" source="Materia" target="Inscripcion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene " source="Alumno" target="Inscripcion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
