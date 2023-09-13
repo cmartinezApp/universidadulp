@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 08-09-2023 a las 13:25:48
+-- Tiempo de generación: 13-09-2023 a las 13:22:57
 -- Versión del servidor: 8.1.0
 -- Versión de PHP: 8.2.10
 
@@ -30,11 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `alumno` (
   `idAlumno` int NOT NULL,
   `dni` int NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `fechaNacimiento` date NOT NULL,
   `estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `inscripcion` (
   `nota` int NOT NULL,
   `idAlumno` int NOT NULL,
   `idMateria` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -57,10 +57,10 @@ CREATE TABLE `inscripcion` (
 
 CREATE TABLE `materia` (
   `idMateria` int NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `anio` int NOT NULL,
   `estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
