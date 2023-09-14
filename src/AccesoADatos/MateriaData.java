@@ -4,6 +4,7 @@ import Entidades.Materia;
 import java.sql.*;
 import java.util.*;
 import javax.swing.JOptionPane;
+import java.util.List;
 
 public class MateriaData {
 
@@ -91,7 +92,24 @@ public class MateriaData {
     }
 
     public List<Materia> listarMaterias() {
-        return null;
+        List<Materia> lista = new ArrayList<Materia>();
+        String sql = "SELECT * FROM materia WHERE estado = 1";
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnioMateria(rs.getInt("anio"));
+                materia.setEstado(true);
+                lista.add(materia);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla materia: " + ex.getMessage());
+        }
+        return lista;
     }
 
 }
