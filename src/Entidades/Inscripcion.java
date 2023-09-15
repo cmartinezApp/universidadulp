@@ -18,6 +18,11 @@ public class Inscripcion {
         this.materia = materia;
         this.nota = nota;
     }
+    
+    public Inscripcion(Alumno alumno, Materia materia) {
+        this.alumno = alumno;
+        this.materia = materia;
+    }
 
     public Inscripcion() {
     }

@@ -10,8 +10,8 @@ public class MateriaData {
 
     private Connection conn = null;
 
-    public MateriaData(Connection conn) {
-        this.conn = conn;
+    public MateriaData() {
+        this.conn = Conexion.getConexion();
     }
 
     public void guardarMateria(Materia materia) {
@@ -36,13 +36,14 @@ public class MateriaData {
 
     public Materia buscarMateria(int id) {
         Materia materia = new Materia();
-        String sql = "Select nombre, anio FROM materia Where idMateria = ? AND estado = 1";
+        String sql = "Select idMateria, nombre, anio FROM materia Where idMateria = ? AND estado = 1";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnioMateria(rs.getInt("anio"));
                 materia.setEstado(true);

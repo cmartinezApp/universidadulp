@@ -11,10 +11,7 @@ public class AlumnoData {
     private Connection con = null;
 
     public AlumnoData() {
-    }
-
-    public AlumnoData(Connection con) {
-        this.con = con;
+        this.con = Conexion.getConexion();
     }
 
     public void guardarAlumno(Alumno alumno) {
@@ -40,7 +37,7 @@ public class AlumnoData {
 
     public Alumno buscarAlumno(int id) {
         Alumno alumno = null;
-        String sql = "SELECT dni,apellido,nombre,fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado=1";
+        String sql = "SELECT * FROM alumno WHERE idAlumno = ? AND estado=1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
