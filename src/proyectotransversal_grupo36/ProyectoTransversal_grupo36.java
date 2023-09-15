@@ -1,4 +1,3 @@
-
 package proyectotransversal_grupo36;
 
 import AccesoADatos.*;
@@ -27,6 +26,7 @@ public class ProyectoTransversal_grupo36 {
         materia.guardarMateria(mat1);
         materia.guardarMateria(mat2);
         materia.guardarMateria(mat3);*/
+        
         
         Conexion.cerrarConexion();
     }
