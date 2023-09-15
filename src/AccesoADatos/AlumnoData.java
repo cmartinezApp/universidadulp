@@ -29,8 +29,8 @@ public class AlumnoData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                alumno.setIdAlumno(rs.getInt("isAlumno"));
-                JOptionPane.showMessageDialog(null, "Alumno añadido con exito");
+                alumno.setIdAlumno(rs.getRow());
+                JOptionPane.showMessageDialog(null, "Alumno añadido con éxito");
             }
             ps.close();
         } catch (SQLException ex) {
