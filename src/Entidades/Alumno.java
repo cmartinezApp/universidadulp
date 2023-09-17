@@ -7,26 +7,26 @@ public class Alumno {
     private int dni;
     private String apellido;
     private String nombre;
-    private LocalDate fechaDeNaciemiento;
+    private LocalDate fechaDeNacimiento;
     private boolean estado;
 
     public Alumno() {
     }
 
-    public Alumno(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaDeNaciemiento, boolean estado) {
+    public Alumno(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaDeNacimiento, boolean estado) {
         this.idAlumno = idAlumno;
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
-        this.fechaDeNaciemiento = fechaDeNaciemiento;
+        this.fechaDeNacimiento = fechaDeNacimiento;
         this.estado = estado;
     }
 
-    public Alumno(int dni, String apellido, String nombre, LocalDate fechaDeNaciemiento, boolean estado) {
+    public Alumno(int dni, String apellido, String nombre, LocalDate fechaDeNacimiento, boolean estado) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
-        this.fechaDeNaciemiento = fechaDeNaciemiento;
+        this.fechaDeNacimiento = fechaDeNacimiento;
         this.estado = estado;
     }
 
@@ -62,12 +62,12 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public LocalDate getFechaDeNaciemiento() {
-        return fechaDeNaciemiento;
+    public LocalDate getFechaDeNacimiento() {
+        return fechaDeNacimiento;
     }
 
-    public void setFechaDeNaciemiento(LocalDate fechaDeNaciemiento) {
-        this.fechaDeNaciemiento = fechaDeNaciemiento;
+    public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
     public boolean isEstado() {
@@ -80,8 +80,11 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", fechaDeNaciemiento=" + fechaDeNaciemiento + ", estado=" + estado + '}';
+        return "Alumno: " + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre ;
     }
+
+   
     
     
 }
+

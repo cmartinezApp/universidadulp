@@ -1,5 +1,6 @@
 package AccesoADatos;
 
+import AccesoADatos.Conexion;
 import Entidades.Alumno;
 import java.sql.*;
 import java.util.*;
@@ -11,9 +12,10 @@ public class AlumnoData {
     private Connection con = null;
 
     public AlumnoData() {
-        this.con = Conexion.getConexion();
+        con=Conexion.getConexion();
     }
 
+    
     public void guardarAlumno(Alumno alumno) {
         String sql = "INSERT INTO alumno(dni, apellido, nombre, fechaNacimiento,estado) VALUES(?,?,?,?,?)";
         try {
@@ -21,13 +23,13 @@ public class AlumnoData {
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
-            ps.setDate(4, Date.valueOf(alumno.getFechaDeNaciemiento()));
+            ps.setDate(4, Date.valueOf(alumno.getFechaDeNacimiento()));
             ps.setBoolean(5, alumno.isEstado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                alumno.setIdAlumno(rs.getRow());
-                JOptionPane.showMessageDialog(null, "Alumno añadido con éxito");
+                alumno.setIdAlumno(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Alumno añadido con exito");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -37,8 +39,8 @@ public class AlumnoData {
 
     public Alumno buscarAlumno(int id) {
         Alumno alumno = null;
-        String sql = "SELECT * FROM alumno WHERE idAlumno = ? AND estado=1";
-        PreparedStatement ps = null;
+        String sql = "SELECT dni,apellido,nombre,fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado=1";
+        PreparedStatement ps=null ;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -51,7 +53,7 @@ public class AlumnoData {
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaDeNaciemiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(true);
 
             } else {
@@ -80,7 +82,7 @@ public class AlumnoData {
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaDeNaciemiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(true);
 
             } else {
@@ -110,8 +112,8 @@ public class AlumnoData {
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaDeNaciemiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(rs.getBoolean("estado"));
+                alumno.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setEstado(true);
                 alumnos.add(alumno);
 
             }
@@ -126,14 +128,14 @@ public class AlumnoData {
     }
 
     public void modificarAlumno(Alumno alumno) {
-        String sql = "UPDATE alumno SET dni=?, apellido=?, nombre =?, fechaNaciemiento =? WHERE idAlumno =?";
+        String sql = "UPDATE alumno SET dni=?, apellido=?, nombre =?, fechaNacimiento =? WHERE idAlumno =?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
-            ps.setDate(4, Date.valueOf(alumno.getFechaDeNaciemiento()));
+            ps.setDate(4, Date.valueOf(alumno.getFechaDeNacimiento()));
             ps.setInt(5, alumno.getIdAlumno());
             int exito=ps.executeUpdate();
             
@@ -150,13 +152,13 @@ public class AlumnoData {
         }
     }
 
-    public void eliminarAlumno(int id) {
+    public void eliminarAlumno(int dni) {
         
         try{
-        String sql="UPDATE alumno SET estado =0 WHERE idAlumno = ?";
+        String sql="UPDATE alumno SET estado = 0 WHERE dni = ?";
         
         PreparedStatement ps=con.prepareStatement(sql);
-        ps.setInt(1, id);
+        ps.setInt(1, dni);
         int fila=ps.executeUpdate();
         if(fila==1){
                JOptionPane.showMessageDialog(null, "Se elimino el alumno." );

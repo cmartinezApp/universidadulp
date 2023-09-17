@@ -74,5 +74,12 @@ public class Inscripcion {
     public void setNota(double nota) {
         this.nota = nota;
     }
+
+    @Override
+    public String toString() {
+        String insc= idInscripcion+" ,"+ alumno.getApellido()+", "+alumno.getNombre()+", "+materia.getNombre();
+
+        return insc;                                                                            
+    }
     
 }
