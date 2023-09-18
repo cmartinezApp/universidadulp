@@ -5,9 +5,9 @@
  */
 package vistas;
 
-import AccesoADatos.*;
-import Entidades.*;
-import java.awt.Color;
+import AccesoADatos.*; //Importa clases para conectarse y ejectuar consultas SQL
+import Entidades.*; //Enlaza con las clases de los objetos
+import java.awt.Color; //Para generar color de fondo
 
 /**
  *
@@ -16,17 +16,18 @@ import java.awt.Color;
 public class formMateria extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form formMateria
+     Formulario para verificar Materias. Buscar activas, eliminarlas y crear nuevas.
      */
     public formMateria() {
         initComponents();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        botonEliminar.setEnabled(false);
-        botonGuardar.setEnabled(false);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null); //Elimina encabezado de ventana
+        botonEliminar.setEnabled(false); //Inhabilita Botón de guardar
+        botonGuardar.setEnabled(false); //Inhabilita Botón de eliminar
 
     }
 
     public void habilitarEliminar() {
+        //Esta sentencia habilita e inhabilita el boton de eliminar
         if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
             botonEliminar.setEnabled(true);
         } else {
@@ -34,6 +35,7 @@ public class formMateria extends javax.swing.JInternalFrame {
         }
     }
     public void habilitarGuardar(){
+        //Esta sentencia habilita e inhabilita el boton de guardar
         if(botonEstado.isSelected() && !campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
             botonGuardar.setEnabled(true);
         }else{
@@ -41,6 +43,7 @@ public class formMateria extends javax.swing.JInternalFrame {
             botonEstado.setSelected(false);
         }
     }
+    //Instancio objeto Materia y MateriaData para usar en los métodos del formulario
     MateriaData mat = new MateriaData();
     Materia materia = new Materia();
 
@@ -257,15 +260,18 @@ public class formMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        this.dispose();
+        this.dispose();//Cierra ventana de formulario para volver al menú principal
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        int codigo = Integer.parseInt(campoCodigo.getText());
-        materia = mat.buscarMateria(codigo);
+        int codigo = Integer.parseInt(campoCodigo.getText());//Convierte el código en int
+        materia = mat.buscarMateria(codigo);//genera la busqueda de la materia
+        //Rellena los campos con la información que llegó de buscarMateria
         campoNombre.setText(materia.getNombre());
         campoAnio.setText(String.valueOf(materia.getAnioMateria()));
         botonEstado.setSelected(materia.getEstado());
+        
+        // Cambia leyenda debajo del boton de activa e inactiva
         if (botonEstado.isSelected()) {
             labelEstado.setText("Activa");
             labelEstado.setForeground(Color.GREEN);
@@ -273,6 +279,8 @@ public class formMateria extends javax.swing.JInternalFrame {
             labelEstado.setText("Inactiva");
             labelEstado.setForeground(Color.red);
         }
+        
+        //Habilita boton de guardar si están todos los campos completos
         if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
             botonGuardar.setEnabled(true);
             botonEliminar.setEnabled(true);
@@ -282,22 +290,26 @@ public class formMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        mat.eliminarMateria(Integer.parseInt(campoCodigo.getText()));
+        mat.eliminarMateria(Integer.parseInt(campoCodigo.getText()));//Convierte codigo en int para eliminar la materia
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void campoCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodigoKeyReleased
+        //Habilita el boton eliminar una vez estén los campos correspondientes completos
         habilitarEliminar();
     }//GEN-LAST:event_campoCodigoKeyReleased
 
     private void campoNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyReleased
+        //Habilita el boton eliminar una vez estén los campos correspondientes completos
         habilitarEliminar();
     }//GEN-LAST:event_campoNombreKeyReleased
 
     private void campoAnioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoAnioKeyReleased
+        //Habilita el boton eliminar una vez estén los campos correspondientes completos
         habilitarEliminar();
     }//GEN-LAST:event_campoAnioKeyReleased
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        //Convierte el código en int para realizar la consulta sql para guardar las modificaciones de la materia
         materia.setIdMateria(Integer.parseInt(campoCodigo.getText()));
         materia.setNombre(campoNombre.getText());
         materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
@@ -306,10 +318,12 @@ public class formMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
+        //Habilita el boton guardar una vez estén los campos correspondientes completos
         habilitarGuardar();
     }//GEN-LAST:event_botonEstadoActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
+        //Convierte el código en int para realizar la consulta sql para guardar la materia nueva
         materia.setNombre(campoNombre.getText());
         materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
         materia.setEstado(true);
