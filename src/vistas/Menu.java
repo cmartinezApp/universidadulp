@@ -6,6 +6,8 @@
 package vistas;
 
 import AccesoADatos.Conexion;
+import java.awt.Image;
+import java.awt.Toolkit;
 import static java.awt.image.ImageObserver.WIDTH;
 
 /**
@@ -19,7 +21,10 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        //Image img = Toolkit.getDefaultToolkit().getImage("C:\\Users\\USUARIO\\Documents\\GitHub\\universidadulp\\fondo.jpg");
+        //escritorio.getBackground();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +38,7 @@ public class Menu extends javax.swing.JFrame {
         jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
         jSpinField1 = new com.toedter.components.JSpinField();
         escritorio = new javax.swing.JDesktopPane();
+        imagenFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuformAlumno = new javax.swing.JMenuItem();
@@ -44,19 +50,19 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Universidad ULP");
+        setMaximumSize(new java.awt.Dimension(800, 627));
+        setMinimumSize(new java.awt.Dimension(800, 627));
+        setResizable(false);
 
+        escritorio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         escritorio.setMinimumSize(new java.awt.Dimension(800, 600));
 
-        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
-        escritorio.setLayout(escritorioLayout);
-        escritorioLayout.setHorizontalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        escritorioLayout.setVerticalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
+        imagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
+        imagenFondo.setDisabledIcon(null);
+        escritorio.add(imagenFondo);
+        imagenFondo.setBounds(3, 3, 800, 600);
+
+        jMenuBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jMenu1.setText("Alumno");
 
@@ -102,11 +108,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
@@ -114,6 +120,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuformAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuformAlumnoActionPerformed
         escritorio.removeAll();
+        escritorio.add(imagenFondo);
         escritorio.repaint();
         formAlumno formAlu = new formAlumno();
         formAlu.setVisible(true);
@@ -141,6 +148,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         //Inicia pantalla de formulario de Materias
         escritorio.removeAll();
+        escritorio.add(imagenFondo);
         escritorio.repaint();
         formMateria formMate = new formMateria();
         formMate.setVisible(true);
@@ -175,17 +183,19 @@ public class Menu extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
             }
+            
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel imagenFondo;
     private com.toedter.components.JLocaleChooser jLocaleChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

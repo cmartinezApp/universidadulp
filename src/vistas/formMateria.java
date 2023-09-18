@@ -72,6 +72,7 @@ public class formMateria extends javax.swing.JInternalFrame {
         botonGuardar = new javax.swing.JToggleButton();
         botonSalir = new javax.swing.JToggleButton();
         labelEstado = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(java.awt.SystemColor.activeCaption);
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -81,23 +82,35 @@ public class formMateria extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setVisible(true);
+        getContentPane().setLayout(null);
 
+        nameTitle.setBackground(java.awt.SystemColor.window);
         nameTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         nameTitle.setText("Materia");
+        getContentPane().add(nameTitle);
+        nameTitle.setBounds(358, 10, 68, 26);
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(253, 46, 300, 11);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(java.awt.Color.black);
         jLabel1.setText("Código:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(166, 129, 54, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(166, 189, 59, 17);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("Año:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(166, 252, 31, 17);
 
         campoCodigo.setBackground(new java.awt.Color(255, 255, 255));
         campoCodigo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -107,6 +120,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 campoCodigoKeyReleased(evt);
             }
         });
+        getContentPane().add(campoCodigo);
+        campoCodigo.setBounds(264, 129, 144, 23);
 
         campoNombre.setBackground(java.awt.Color.white);
         campoNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -116,6 +131,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 campoNombreKeyReleased(evt);
             }
         });
+        getContentPane().add(campoNombre);
+        campoNombre.setBounds(264, 189, 144, 23);
 
         campoAnio.setBackground(java.awt.Color.white);
         campoAnio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -125,6 +142,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 campoAnioKeyReleased(evt);
             }
         });
+        getContentPane().add(campoAnio);
+        campoAnio.setBounds(264, 252, 64, 23);
 
         botonBuscar.setText("Buscar");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,16 +151,22 @@ public class formMateria extends javax.swing.JInternalFrame {
                 botonBuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonBuscar);
+        botonBuscar.setBounds(511, 124, 80, 32);
 
         botonEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEstadoActionPerformed(evt);
             }
         });
+        getContentPane().add(botonEstado);
+        botonEstado.setBounds(264, 332, 28, 28);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Estado:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(166, 337, 52, 17);
 
         botonNuevo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         botonNuevo.setText("Nuevo");
@@ -150,6 +175,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 botonNuevoActionPerformed(evt);
             }
         });
+        getContentPane().add(botonNuevo);
+        botonNuevo.setBounds(166, 514, 80, 31);
 
         botonEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         botonEliminar.setText("Eliminar");
@@ -158,6 +185,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 botonEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonEliminar);
+        botonEliminar.setBounds(264, 514, 90, 31);
 
         botonGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         botonGuardar.setText("Guardar");
@@ -166,6 +195,8 @@ public class formMateria extends javax.swing.JInternalFrame {
                 botonGuardarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonGuardar);
+        botonGuardar.setBounds(376, 514, 90, 31);
 
         botonSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         botonSalir.setText("Salir");
@@ -174,93 +205,24 @@ public class formMateria extends javax.swing.JInternalFrame {
                 botonSalirActionPerformed(evt);
             }
         });
+        getContentPane().add(botonSalir);
+        botonSalir.setBounds(485, 514, 70, 31);
 
         labelEstado.setForeground(new java.awt.Color(0, 0, 0));
         labelEstado.setText("Activa|Inactiva");
+        getContentPane().add(labelEstado);
+        labelEstado.setBounds(264, 366, 82, 16);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(242, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(358, 358, 358)
-                        .addComponent(nameTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addComponent(botonNuevo))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botonEliminar)
-                                .addGap(36, 36, 36)
-                                .addComponent(botonGuardar)
-                                .addGap(33, 33, 33)
-                                .addComponent(botonSalir))
-                            .addComponent(botonEstado)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoCodigo)
-                                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(103, 103, 103)
-                                .addComponent(botonBuscar))
-                            .addComponent(labelEstado))))
-                .addContainerGap(212, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonBuscar))
-                        .addGap(33, 33, 33)
-                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(campoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(botonEstado))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel3)
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelEstado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(botonEliminar)
-                    .addComponent(botonGuardar)
-                    .addComponent(botonSalir)
-                    .addComponent(botonNuevo))
-                .addGap(29, 29, 29))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(0, 0, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         this.dispose();//Cierra ventana de formulario para volver al menú principal
+        
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
@@ -345,6 +307,7 @@ public class formMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelEstado;
     private java.awt.Label nameTitle;
