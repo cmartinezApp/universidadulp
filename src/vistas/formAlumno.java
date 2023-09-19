@@ -40,7 +40,6 @@ public class formAlumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLAlumno = new javax.swing.JLabel();
         jLDocumento = new javax.swing.JLabel();
         jLApellido = new javax.swing.JLabel();
@@ -57,6 +56,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
         jBGuardar = new javax.swing.JButton();
         jBNuevo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jDateFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(java.awt.SystemColor.activeCaption);
@@ -66,10 +66,6 @@ public class formAlumno extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
-
-        jDateFechaNacimiento.setBackground(java.awt.Color.white);
-        getContentPane().add(jDateFechaNacimiento);
-        jDateFechaNacimiento.setBounds(468, 341, 155, 29);
 
         jLAlumno.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLAlumno.setForeground(new java.awt.Color(0, 0, 0));
@@ -107,19 +103,19 @@ public class formAlumno extends javax.swing.JInternalFrame {
         getContentPane().add(jLFechaNacimiento);
         jLFechaNacimiento.setBounds(167, 353, 147, 17);
         getContentPane().add(jRBEstado);
-        jRBEstado.setBounds(322, 281, 28, 28);
+        jRBEstado.setBounds(322, 281, 19, 20);
 
         jTDocumento.setBackground(java.awt.Color.white);
         getContentPane().add(jTDocumento);
-        jTDocumento.setBounds(324, 106, 142, 24);
+        jTDocumento.setBounds(324, 106, 142, 22);
 
         jTApellido.setBackground(java.awt.Color.white);
         getContentPane().add(jTApellido);
-        jTApellido.setBounds(324, 172, 142, 24);
+        jTApellido.setBounds(324, 172, 142, 22);
 
         jTNombre.setBackground(java.awt.Color.white);
         getContentPane().add(jTNombre);
-        jTNombre.setBounds(324, 234, 142, 24);
+        jTNombre.setBounds(324, 234, 142, 22);
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +124,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jbBuscar);
-        jbBuscar.setBounds(506, 102, 80, 32);
+        jbBuscar.setBounds(506, 102, 80, 23);
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +133,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBSalir);
-        jBSalir.setBounds(567, 516, 70, 32);
+        jBSalir.setBounds(567, 516, 70, 23);
 
         jBEliminar.setText("Eliminar");
         jBEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +142,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBEliminar);
-        jBEliminar.setBounds(459, 516, 90, 32);
+        jBEliminar.setBounds(459, 516, 90, 23);
 
         jBGuardar.setText("Guardar");
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +151,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBGuardar);
-        jBGuardar.setBounds(329, 516, 90, 32);
+        jBGuardar.setBounds(329, 516, 90, 23);
 
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -164,9 +160,11 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBNuevo);
-        jBNuevo.setBounds(231, 516, 80, 32);
+        jBNuevo.setBounds(231, 516, 80, 23);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(167, 40, 456, 10);
+        getContentPane().add(jDateFechaNacimiento);
+        jDateFechaNacimiento.setBounds(400, 350, 260, 22);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -189,7 +187,6 @@ public class formAlumno extends javax.swing.JInternalFrame {
             jBEliminar.setEnabled(true);
             //jDateFechaNacimiento.setDate(a.getFechaDeNacimiento());
             jDateFechaNacimiento.setDate(java.sql.Date.valueOf(a.getFechaDeNacimiento()));
-            
 
 // jDFechaNacimiento.setDate(Date.valueOf(a.getFechaDeNacimiento())).toLocalDate;
             if (a.equals(null)) {

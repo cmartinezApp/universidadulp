@@ -9,13 +9,14 @@ import AccesoADatos.Conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.Connection;
 
 /**
  *
  * @author Usuario
  */
 public class Menu extends javax.swing.JFrame {
-
+    private Connection conexion;
     /**
      * Creates new form Menu
      */
@@ -35,8 +36,6 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
-        jSpinField1 = new com.toedter.components.JSpinField();
         escritorio = new javax.swing.JDesktopPane();
         imagenFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -45,6 +44,8 @@ public class Menu extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
@@ -58,7 +59,6 @@ public class Menu extends javax.swing.JFrame {
         escritorio.setMinimumSize(new java.awt.Dimension(800, 600));
 
         imagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
-        imagenFondo.setDisabledIcon(null);
         escritorio.add(imagenFondo);
         imagenFondo.setBounds(3, 3, 800, 600);
 
@@ -89,6 +89,18 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Administración");
+
+        jMenuItem2.setText("Manejo de Inscripciones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem3.setText("Manipulacion de Notas");
+        jMenu4.add(jMenuItem3);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Consultas");
@@ -156,6 +168,14 @@ public class Menu extends javax.swing.JFrame {
         escritorio.moveToFront(formMate);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Vista de Formulario de Inscripcion
+        Vista_Ins v1 = new Vista_Ins(conexion);
+        v1.setVisible(true);
+        escritorio.add(v1);
+        escritorio.moveToFront(v1);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,7 +216,6 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel imagenFondo;
-    private com.toedter.components.JLocaleChooser jLocaleChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -204,7 +223,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuformAlumno;
-    private com.toedter.components.JSpinField jSpinField1;
     // End of variables declaration//GEN-END:variables
 }
