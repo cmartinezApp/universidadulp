@@ -60,7 +60,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(java.awt.SystemColor.activeCaption);
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setBorder(null);
         setTitle("Alumnos");
         setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -103,19 +103,19 @@ public class formAlumno extends javax.swing.JInternalFrame {
         getContentPane().add(jLFechaNacimiento);
         jLFechaNacimiento.setBounds(167, 353, 147, 17);
         getContentPane().add(jRBEstado);
-        jRBEstado.setBounds(322, 281, 19, 20);
+        jRBEstado.setBounds(322, 281, 28, 28);
 
         jTDocumento.setBackground(java.awt.Color.white);
         getContentPane().add(jTDocumento);
-        jTDocumento.setBounds(324, 106, 142, 22);
+        jTDocumento.setBounds(324, 106, 142, 24);
 
         jTApellido.setBackground(java.awt.Color.white);
         getContentPane().add(jTApellido);
-        jTApellido.setBounds(324, 172, 142, 22);
+        jTApellido.setBounds(324, 172, 142, 24);
 
         jTNombre.setBackground(java.awt.Color.white);
         getContentPane().add(jTNombre);
-        jTNombre.setBounds(324, 234, 142, 22);
+        jTNombre.setBounds(324, 234, 142, 24);
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jbBuscar);
-        jbBuscar.setBounds(506, 102, 80, 23);
+        jbBuscar.setBounds(506, 102, 80, 32);
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +133,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBSalir);
-        jBSalir.setBounds(567, 516, 70, 23);
+        jBSalir.setBounds(567, 516, 70, 32);
 
         jBEliminar.setText("Eliminar");
         jBEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +142,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBEliminar);
-        jBEliminar.setBounds(459, 516, 90, 23);
+        jBEliminar.setBounds(459, 516, 90, 32);
 
         jBGuardar.setText("Guardar");
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBGuardar);
-        jBGuardar.setBounds(329, 516, 90, 23);
+        jBGuardar.setBounds(329, 516, 90, 32);
 
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -160,13 +160,11 @@ public class formAlumno extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBNuevo);
-        jBNuevo.setBounds(231, 516, 80, 23);
+        jBNuevo.setBounds(231, 516, 80, 32);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(167, 40, 456, 10);
         getContentPane().add(jDateFechaNacimiento);
-        jDateFechaNacimiento.setBounds(400, 350, 260, 22);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
+        jDateFechaNacimiento.setBounds(400, 350, 260, 29);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 800, 600);
 
@@ -295,7 +293,7 @@ public class formAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNombre;
     private javax.swing.JButton jbBuscar;
     // End of variables declaration//GEN-END:variables
-public void desactivarCampos() {
+    public void desactivarCampos() {
 
         jTApellido.setEnabled(false);
         jTNombre.setEnabled(false);

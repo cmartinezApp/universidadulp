@@ -23,6 +23,11 @@ public class formMateria extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null); //Elimina encabezado de ventana
         botonEliminar.setEnabled(false); //Inhabilita Botón de guardar
         botonGuardar.setEnabled(false); //Inhabilita Botón de eliminar
+        campoAnio.setFocusable(false);
+        campoAnio.setCursor(null);
+        campoNombre.setFocusable(false);
+        campoNombre.setCursor(null);
+        
 
     }
 
@@ -30,13 +35,13 @@ public class formMateria extends javax.swing.JInternalFrame {
         //Esta sentencia habilita e inhabilita el boton de eliminar
         if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
             botonEliminar.setEnabled(true);
-        } else {
-            botonGuardar.setEnabled(false);
+        }else{
+            botonEliminar.setEnabled(false);
         }
     }
     public void habilitarGuardar(){
         //Esta sentencia habilita e inhabilita el boton de guardar
-        if(botonEstado.isSelected() && !campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
+        if(botonEstado.isSelected() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
             botonGuardar.setEnabled(true);
         }else{
             botonGuardar.setEnabled(false);
@@ -57,7 +62,6 @@ public class formMateria extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         nameTitle = new java.awt.Label();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -73,9 +77,10 @@ public class formMateria extends javax.swing.JInternalFrame {
         botonSalir = new javax.swing.JToggleButton();
         labelEstado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(java.awt.SystemColor.activeCaption);
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setBorder(null);
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(1024, 768));
@@ -84,15 +89,13 @@ public class formMateria extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(null);
 
-        nameTitle.setBackground(java.awt.SystemColor.window);
+        nameTitle.setAlignment(java.awt.Label.CENTER);
+        nameTitle.setBackground(java.awt.SystemColor.activeCaption);
+        nameTitle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         nameTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         nameTitle.setText("Materia");
         getContentPane().add(nameTitle);
         nameTitle.setBounds(358, 10, 68, 26);
-
-        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(253, 46, 300, 11);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(java.awt.Color.black);
@@ -212,10 +215,10 @@ public class formMateria extends javax.swing.JInternalFrame {
         labelEstado.setText("Activa|Inactiva");
         getContentPane().add(labelEstado);
         labelEstado.setBounds(264, 366, 82, 16);
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(0, 0, 800, 600);
+        jLabel5.setBounds(0, 0, 800, 0);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(167, 40, 456, 10);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,6 +229,7 @@ public class formMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        materia = null;
         int codigo = Integer.parseInt(campoCodigo.getText());//Convierte el código en int
         materia = mat.buscarMateria(codigo);//genera la busqueda de la materia
         //Rellena los campos con la información que llegó de buscarMateria
@@ -263,20 +267,30 @@ public class formMateria extends javax.swing.JInternalFrame {
     private void campoNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyReleased
         //Habilita el boton eliminar una vez estén los campos correspondientes completos
         habilitarEliminar();
+        habilitarGuardar();
     }//GEN-LAST:event_campoNombreKeyReleased
 
     private void campoAnioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoAnioKeyReleased
         //Habilita el boton eliminar una vez estén los campos correspondientes completos
         habilitarEliminar();
+        habilitarGuardar();
     }//GEN-LAST:event_campoAnioKeyReleased
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         //Convierte el código en int para realizar la consulta sql para guardar las modificaciones de la materia
-        materia.setIdMateria(Integer.parseInt(campoCodigo.getText()));
-        materia.setNombre(campoNombre.getText());
-        materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
-        materia.setEstado(botonEstado.isSelected());
-        mat.modificarMateria(materia);
+        materia = null;
+        if(!campoCodigo.getText().isEmpty()){
+            materia.setIdMateria(Integer.parseInt(campoCodigo.getText()));
+            materia.setNombre(campoNombre.getText());
+            materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
+            materia.setEstado(botonEstado.isSelected());
+            mat.modificarMateria(materia);
+        }else{
+            materia.setNombre(campoNombre.getText());
+            materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
+            materia.setEstado(botonEstado.isSelected());
+            mat.guardarMateria(materia);
+        }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
