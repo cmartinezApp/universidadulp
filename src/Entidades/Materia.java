@@ -16,6 +16,11 @@ public class Materia {
         this.anioMateria = anioMateria;
         this.estado = estado;
     }
+    
+    public Materia(int idMateria, String nombre) {
+        this.idMateria = idMateria;
+        this.nombre = nombre;
+    }
 
     public Materia(String nombre, int anioMateria, Boolean estado) {
         this.nombre = nombre;
@@ -57,7 +62,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia: " + "idMateria=" + idMateria + ", nombre=" + nombre + ", anioMateria=" + anioMateria + ", estado=" + estado ;
+        return "Materia: " + nombre;
     }
 
 }
