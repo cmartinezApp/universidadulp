@@ -36,7 +36,12 @@ public class Alumno {
         this.apellido = apellido;
         this.nombre = nombre;
     }
-
+        
+    public Alumno(int dni, String apellido, String nombre) {
+        this.dni = dni;        
+        this.apellido = apellido;
+        this.nombre = nombre;
+    }
     public int getIdAlumno() {
         return idAlumno;
     }
@@ -87,7 +92,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno: " + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre ;
+        return "Alumno: " + apellido + ", " + nombre + ". DNI: "+dni;
     }
 
    

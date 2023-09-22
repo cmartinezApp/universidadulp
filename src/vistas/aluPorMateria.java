@@ -119,6 +119,7 @@ public class aluPorMateria extends javax.swing.JInternalFrame {
 
             }
         ));
+        tablaAlumnos.setEnabled(false);
         jScrollPane1.setViewportView(tablaAlumnos);
 
         botonSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -181,6 +182,7 @@ public class aluPorMateria extends javax.swing.JInternalFrame {
     private void comboMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMateriasActionPerformed
         vaciarTabla();
         List<Alumno> listaInscriptas = inscripcionData.obtenerAlumnoPorMaterias(comboMaterias.getItemAt(comboMaterias.getSelectedIndex()).getIdMateria());
+
         for (Alumno ins : listaInscriptas) {
             
             modeloTabla.addRow(new Object[]{ins.getIdAlumno(), ins.getDni(), ins.getApellido(), ins.getNombre()});

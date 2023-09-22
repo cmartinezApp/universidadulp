@@ -101,6 +101,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu4.add(jMenuItem2);
 
         jMenuItem3.setText("Manipulacion de Notas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
@@ -200,6 +205,16 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(screen);
         escritorio.moveToFront(screen);
     }//GEN-LAST:event_alumnosXMateriaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        escritorio.removeAll();
+        escritorio.add(imagenFondo);
+        escritorio.repaint();
+        Manipulacion_De_Notas screen = new Manipulacion_De_Notas();
+        screen.setVisible(true);
+        escritorio.add(screen);
+        escritorio.moveToFront(screen);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

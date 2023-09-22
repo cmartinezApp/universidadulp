@@ -8,6 +8,8 @@ package vistas;
 import AccesoADatos.*; //Importa clases para conectarse y ejectuar consultas SQL
 import Entidades.*; //Enlaza con las clases de los objetos
 import java.awt.Color; //Para generar color de fondo
+import java.awt.Cursor;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +18,8 @@ import java.awt.Color; //Para generar color de fondo
 public class formMateria extends javax.swing.JInternalFrame {
 
     /**
-     Formulario para verificar Materias. Buscar activas, eliminarlas y crear nuevas.
+     * Formulario para verificar Materias. Buscar activas, eliminarlas y crear
+     * nuevas.
      */
     public formMateria() {
         initComponents();
@@ -27,7 +30,6 @@ public class formMateria extends javax.swing.JInternalFrame {
         campoAnio.setCursor(null);
         campoNombre.setFocusable(false);
         campoNombre.setCursor(null);
-        
 
     }
 
@@ -35,18 +37,35 @@ public class formMateria extends javax.swing.JInternalFrame {
         //Esta sentencia habilita e inhabilita el boton de eliminar
         if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
             botonEliminar.setEnabled(true);
-        }else{
+        } else {
             botonEliminar.setEnabled(false);
         }
     }
-    public void habilitarGuardar(){
+
+    public void habilitarGuardar() {
         //Esta sentencia habilita e inhabilita el boton de guardar
-        if(botonEstado.isSelected() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
+        if (botonEstado.isSelected() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
             botonGuardar.setEnabled(true);
-        }else{
+        } else {
             botonGuardar.setEnabled(false);
             botonEstado.setSelected(false);
         }
+    }
+
+    public void limpiarPantalla() {
+        botonEliminar.setEnabled(false); //Inhabilita Botón de guardar
+        botonGuardar.setEnabled(false); //Inhabilita Botón de eliminar
+        botonEstado.setSelected(false);
+        campoAnio.setText("");
+        campoAnio.setFocusable(false);
+        campoAnio.setCursor(null);
+        campoNombre.setText("");
+        campoNombre.setFocusable(false);
+        campoNombre.setCursor(null);
+        campoCodigo.setText("");
+        campoCodigo.setFocusable(true);
+        campoCodigo.setEnabled(true);
+        campoCodigo.setCursor(Cursor.getPredefinedCursor(2));
     }
     //Instancio objeto Materia y MateriaData para usar en los métodos del formulario
     MateriaData mat = new MateriaData();
@@ -78,6 +97,7 @@ public class formMateria extends javax.swing.JInternalFrame {
         labelEstado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        limpiarPantalla = new javax.swing.JButton();
 
         setBackground(java.awt.SystemColor.activeCaption);
         setBorder(null);
@@ -220,36 +240,60 @@ public class formMateria extends javax.swing.JInternalFrame {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(167, 40, 456, 10);
 
+        limpiarPantalla.setText("Limpiar");
+        limpiarPantalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarPantallaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(limpiarPantalla);
+        limpiarPantalla.setBounds(510, 170, 80, 32);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         this.dispose();//Cierra ventana de formulario para volver al menú principal
-        
+
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        materia = null;
-        int codigo = Integer.parseInt(campoCodigo.getText());//Convierte el código en int
-        materia = mat.buscarMateria(codigo);//genera la busqueda de la materia
-        //Rellena los campos con la información que llegó de buscarMateria
-        campoNombre.setText(materia.getNombre());
-        campoAnio.setText(String.valueOf(materia.getAnioMateria()));
-        botonEstado.setSelected(materia.getEstado());
-        
-        // Cambia leyenda debajo del boton de activa e inactiva
-        if (botonEstado.isSelected()) {
-            labelEstado.setText("Activa");
-            labelEstado.setForeground(Color.GREEN);
-        } else {
-            labelEstado.setText("Inactiva");
-            labelEstado.setForeground(Color.red);
-        }
-        
-        //Habilita boton de guardar si están todos los campos completos
-        if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()){
-            botonGuardar.setEnabled(true);
-            botonEliminar.setEnabled(true);
+        try {
+            int codigo = Integer.parseInt(campoCodigo.getText());
+            //Convierte el código en int
+            materia = mat.buscarMateria(codigo);//genera la busqueda de la materia
+            //Rellena los campos con la información que llegó de buscarMateria
+            JOptionPane.showMessageDialog(null, materia);
+            try {
+                campoNombre.setText(materia.getNombre());
+                campoAnio.setText(String.valueOf(materia.getAnioMateria()));
+                botonEstado.setSelected(materia.getEstado());
+            } catch (NullPointerException ex) {
+                limpiarPantalla();
+            }
+
+            // Cambia leyenda debajo del boton de activa e inactiva
+            if (botonEstado.isSelected()) {
+                labelEstado.setText("Activa");
+                labelEstado.setForeground(Color.GREEN);
+            } else {
+                labelEstado.setText("Inactiva");
+                labelEstado.setForeground(Color.red);
+            }
+
+            //Habilita boton de guardar si están todos los campos completos
+            if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
+                botonGuardar.setEnabled(true);
+                botonEliminar.setEnabled(true);
+            }
+
+            //Habilita campos para edición.
+            campoAnio.setFocusable(true);
+            campoAnio.setCursor(Cursor.getPredefinedCursor(2));
+            campoNombre.setFocusable(true);
+            campoNombre.setCursor(Cursor.getPredefinedCursor(2));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Ingrese un código para buscar");
         }
 
 
@@ -257,6 +301,7 @@ public class formMateria extends javax.swing.JInternalFrame {
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         mat.eliminarMateria(Integer.parseInt(campoCodigo.getText()));//Convierte codigo en int para eliminar la materia
+        limpiarPantalla();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void campoCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodigoKeyReleased
@@ -278,19 +323,20 @@ public class formMateria extends javax.swing.JInternalFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         //Convierte el código en int para realizar la consulta sql para guardar las modificaciones de la materia
-        materia = null;
-        if(!campoCodigo.getText().isEmpty()){
-            materia.setIdMateria(Integer.parseInt(campoCodigo.getText()));
-            materia.setNombre(campoNombre.getText());
-            materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
-            materia.setEstado(botonEstado.isSelected());
-            mat.modificarMateria(materia);
-        }else{
-            materia.setNombre(campoNombre.getText());
-            materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
-            materia.setEstado(botonEstado.isSelected());
-            mat.guardarMateria(materia);
+        Materia guardarMateria = new Materia();
+        if (!campoCodigo.getText().isEmpty()) {
+            guardarMateria.setIdMateria(Integer.parseInt(campoCodigo.getText()));
+            guardarMateria.setNombre(campoNombre.getText());
+            guardarMateria.setAnioMateria(Integer.parseInt(campoAnio.getText()));
+            guardarMateria.setEstado(botonEstado.isSelected());
+            mat.modificarMateria(guardarMateria);
+        } else {
+            guardarMateria.setNombre(campoNombre.getText());
+            guardarMateria.setAnioMateria(Integer.parseInt(campoAnio.getText()));
+            guardarMateria.setEstado(botonEstado.isSelected());
+            mat.guardarMateria(guardarMateria);
         }
+        limpiarPantalla();
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
@@ -300,11 +346,24 @@ public class formMateria extends javax.swing.JInternalFrame {
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
         //Convierte el código en int para realizar la consulta sql para guardar la materia nueva
-        materia.setNombre(campoNombre.getText());
-        materia.setAnioMateria(Integer.parseInt(campoAnio.getText()));
-        materia.setEstado(true);
-        mat.guardarMateria(materia);
+        campoAnio.setFocusable(true);
+        campoAnio.setCursor(Cursor.getPredefinedCursor(2));
+        campoNombre.setFocusable(true);
+        campoNombre.setCursor(Cursor.getPredefinedCursor(2));
+        campoNombre.setText("COMPLETAR");
+        campoNombre.setToolTipText("Ingrese el nombre de la materia nueva");
+        campoAnio.setText("COMPLETAR");
+        campoAnio.setToolTipText("Ingrese el año de cursado de la materia nueva");
+        //campoCodigo.setFocusable(true);
+        //campoCodigo.setCursor(null);
+        campoCodigo.setText("");
+        campoCodigo.setEnabled(false);
+        habilitarGuardar();
     }//GEN-LAST:event_botonNuevoActionPerformed
+
+    private void limpiarPantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarPantallaActionPerformed
+        limpiarPantalla();
+    }//GEN-LAST:event_limpiarPantallaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -324,6 +383,7 @@ public class formMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelEstado;
+    private javax.swing.JButton limpiarPantalla;
     private java.awt.Label nameTitle;
     // End of variables declaration//GEN-END:variables
 }
