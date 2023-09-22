@@ -8,6 +8,7 @@ import Entidades.Inscripcion;
 import Entidades.Materia;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
 public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
-    private AlumnoData a1 = new AlumnoData();
-    private Alumno a = new Alumno();
-    private InscripcionData ins_data = new InscripcionData();
+    private AlumnoData a1;
+    private Alumno a;
+    private MateriaData matData;
+    private Inscripcion in;
+    private InscripcionData ins_data;
 
     /**
      * Creates new form Manipulacion_De_Notas
@@ -138,10 +141,12 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void ComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox1ActionPerformed
-        
-        Inscripcion in = new Inscripcion();
-        MateriaData matData = new MateriaData();
-        
+        //Instanciamos cada Objeto a Utilizar
+        in = new Inscripcion();
+        matData = new MateriaData();
+        ins_data = new InscripcionData();
+        a = new Alumno();
+
         // Llamar al método obtenerMateriasCursadas para obtener la lista de materias cursadas para el alumno
         List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(a.getIdAlumno());
 
@@ -164,25 +169,42 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
 
     private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
         // Actualizar Nota
+        // Obtener el alumno seleccionado en el ComboBox
+        Alumno as = (Alumno) ComboBox1.getSelectedItem();
+        if (as != null) {
+            // Obtener el ID del alumno seleccionado
+            int idAlumnoSeleccionado = as.getIdAlumno();
 
-
+            // Iterar sobre las filas de la tabla para obtener los datos de las materias y las notas
+            for (int fila = 0; fila < modeloTabla.getRowCount(); fila++) {
+                int idMateria = (int) modeloTabla.getValueAt(fila, 0);
+                double nota = Double.parseDouble(modeloTabla.getValueAt(fila, 2).toString());
+                // Aquí debes llamar al método de InscripcionData para actualizar la nota en la base de datos
+                ins_data.actualizarNota(idAlumnoSeleccionado, idMateria, nota);
+            }
+            // Mostrar un mensaje de éxito o realizar otras acciones necesarias
+            JOptionPane.showMessageDialog(this, "Notas guardadas correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un alumno antes de guardar las notas.");
+        }
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonGuardar;
     private javax.swing.JButton BotonSalir;
-    private javax.swing.JComboBox<String> ComboBox1;
+    private javax.swing.JComboBox<Alumno> ComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla1;
     // End of variables declaration//GEN-END:variables
     private void cargarCombo() {
+        a1 = new AlumnoData();
         List<Alumno> listaAlumnos = a1.listarAlumnos();
 
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Alumno> modelo = new DefaultComboBoxModel<>();
         for (Alumno alumno : listaAlumnos) {
-            modelo.addElement(alumno.toString());
+            modelo.addElement(alumno);
         }
         ComboBox1.setModel(modelo);
     }
