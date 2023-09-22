@@ -18,21 +18,35 @@ import javax.swing.table.DefaultTableModel;
 public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
+
     private AlumnoData a1;
     private Alumno a;
     private MateriaData matData;
     private Inscripcion in;
     private InscripcionData ins_data;
 
+    
+
+
     /**
      * Creates new form Manipulacion_De_Notas
      */
     public Manipulacion_De_Notas() {
         initComponents();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null); //Elimina encabezado de ventana
         this.setTitle("Carga de Notas");
 
         cargarCombo();
         agregarTabla();
+        
+        //carga datos del primer alumno del combo
+        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno());
+        modeloTabla.setRowCount(0);
+        for (Materia mat : materiasCursadas) {
+                // Agrega una fila con los datos de la materia
+                modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), ins_data.obtenerNota(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno(),mat.getIdMateria())});
+            }
+        
     }
 
     /**
@@ -44,21 +58,44 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         ComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla1 = new javax.swing.JTable();
         BotonGuardar = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Listado de Alumnos por Materias");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        setBackground(java.awt.SystemColor.activeCaption);
+        setBorder(null);
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        getContentPane().setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Seleccione un Alumno");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(190, 70, 156, 19);
 
+        ComboBox1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         ComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboBox1ActionPerformed(evt);
             }
         });
+        getContentPane().add(ComboBox1);
+        ComboBox1.setBounds(380, 70, 213, 25);
 
+        tabla1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -82,55 +119,37 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabla1);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(190, 140, 401, 227);
+
+        BotonGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         BotonGuardar.setText("Guardar");
         BotonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonGuardarActionPerformed(evt);
             }
         });
+        getContentPane().add(BotonGuardar);
+        BotonGuardar.setBounds(220, 390, 82, 31);
 
+        BotonSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         BotonSalir.setText("Salir");
         BotonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonSalirActionPerformed(evt);
             }
         });
+        getContentPane().add(BotonSalir);
+        BotonSalir.setBounds(460, 390, 80, 31);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(62, 62, 62)
-                        .addComponent(ComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(BotonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(ComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonGuardar)
-                    .addComponent(BotonSalir))
-                .addGap(21, 21, 21))
-        );
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Listado de Alumnos por Materias");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(240, 10, 287, 22);
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(200, 40, 390, 10);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,14 +167,13 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
         a = new Alumno();
 
         // Llamar al método obtenerMateriasCursadas para obtener la lista de materias cursadas para el alumno
-        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(a.getIdAlumno());
-
+        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno());
         if (materiasCursadas != null) {
             modeloTabla.setRowCount(0);
             // Agregar las materias cursadas a la tabla
-            for (Materia mat : matData.listarMaterias()) {
+            for (Materia mat : materiasCursadas) {
                 // Agrega una fila con los datos de la materia
-                modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), in.getNota()});
+                modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), ins_data.obtenerNota(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno(),mat.getIdMateria())});
             }
         }
     }//GEN-LAST:event_ComboBox1ActionPerformed
@@ -168,6 +186,7 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabla1ComponentAdded
 
     private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
+
         // Actualizar Nota
         // Obtener el alumno seleccionado en el ComboBox
         Alumno as = (Alumno) ComboBox1.getSelectedItem();
@@ -187,6 +206,15 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un alumno antes de guardar las notas.");
         }
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            int idMat = Integer.valueOf(modeloTabla.getValueAt(i, 0).toString());
+            int idAlu = ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno();
+            double nota = Double.parseDouble(modeloTabla.getValueAt(i, 2).toString());
+            ins_data.actualizarNota(idAlu, idMat, nota);
+        }
+        JOptionPane.showMessageDialog(null, "Nota Actualizada");
+
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
 
@@ -195,18 +223,26 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JButton BotonSalir;
     private javax.swing.JComboBox<Alumno> ComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tabla1;
     // End of variables declaration//GEN-END:variables
     private void cargarCombo() {
         a1 = new AlumnoData();
         List<Alumno> listaAlumnos = a1.listarAlumnos();
 
+
         DefaultComboBoxModel<Alumno> modelo = new DefaultComboBoxModel<>();
         for (Alumno alumno : listaAlumnos) {
             modelo.addElement(alumno);
+
+        for (Alumno alumno : listaAlumnos) {
+            ComboBox1.addItem(new Alumno(alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()));
+
         }
-        ComboBox1.setModel(modelo);
     }
 
     private void agregarTabla() {

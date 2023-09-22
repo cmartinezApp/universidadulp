@@ -8,15 +8,18 @@ package vistas;
 import AccesoADatos.Conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
+
 import static java.awt.image.ImageObserver.WIDTH;
-import java.sql.Connection;
+
+//import static java.awt.image.ImageObserver.WIDTH;
+
 
 /**
  *
  * @author Usuario
  */
 public class Menu extends javax.swing.JFrame {
-    private Connection conexion;
+    //private Connection conexion;
     /**
      * Creates new form Menu
      */
@@ -47,18 +50,17 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        alumnosXMateria = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Universidad ULP");
-        setMaximumSize(new java.awt.Dimension(800, 627));
         setMinimumSize(new java.awt.Dimension(800, 627));
+        setUndecorated(true);
         setResizable(false);
 
         escritorio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         escritorio.setMinimumSize(new java.awt.Dimension(800, 600));
-
-        imagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
         escritorio.add(imagenFondo);
         imagenFondo.setBounds(3, 3, 800, 600);
 
@@ -99,11 +101,25 @@ public class Menu extends javax.swing.JFrame {
         jMenu4.add(jMenuItem2);
 
         jMenuItem3.setText("Manipulacion de Notas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Consultas");
+
+        alumnosXMateria.setText("Alumnos por Materia");
+        alumnosXMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alumnosXMateriaActionPerformed(evt);
+            }
+        });
+        jMenu5.add(alumnosXMateria);
+
         jMenuBar1.add(jMenu5);
 
         jMenu7.setText("Salir");
@@ -128,6 +144,7 @@ public class Menu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuformAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuformAlumnoActionPerformed
@@ -170,11 +187,34 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // Vista de Formulario de Inscripcion
-        Vista_Ins v1 = new Vista_Ins(conexion);
-        v1.setVisible(true);
-        escritorio.add(v1);
-        escritorio.moveToFront(v1);
+        escritorio.removeAll();
+        escritorio.add(imagenFondo);
+        escritorio.repaint();
+        Vista_Ins ins = new Vista_Ins();
+        ins.setVisible(true);
+        escritorio.add(ins);
+        escritorio.moveToFront(ins);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void alumnosXMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alumnosXMateriaActionPerformed
+        escritorio.removeAll();
+        escritorio.add(imagenFondo);
+        escritorio.repaint();
+        aluPorMateria screen = new aluPorMateria();
+        screen.setVisible(true);
+        escritorio.add(screen);
+        escritorio.moveToFront(screen);
+    }//GEN-LAST:event_alumnosXMateriaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        escritorio.removeAll();
+        escritorio.add(imagenFondo);
+        escritorio.repaint();
+        Manipulacion_De_Notas screen = new Manipulacion_De_Notas();
+        screen.setVisible(true);
+        escritorio.add(screen);
+        escritorio.moveToFront(screen);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +254,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem alumnosXMateria;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel imagenFondo;
     private javax.swing.JMenu jMenu1;
