@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package vistas;
+
 import AccesoADatos.*; //AlumnoData;
 
 import Entidades.*; //Alumno;
@@ -12,6 +13,7 @@ import java.time.*; // LocalDate;
 import java.util.*; //ArrayList;
 //import java.util.List;
 import javax.swing.*; //JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -24,10 +26,12 @@ public class formAlumno extends javax.swing.JInternalFrame {
     public formAlumno() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null); //Elimina encabezado de ventana
-    AlumnoData alumno = new AlumnoData();
+        AlumnoData alumno = new AlumnoData();
         desactivarCampos();
         jBGuardar.setEnabled(false);
         jBEliminar.setEnabled(false);
+        habilitarNuevo.setSelected(false);
+        jDateFechaNacimiento.setEnabled(false);
 
     }
 
@@ -49,14 +53,16 @@ public class formAlumno extends javax.swing.JInternalFrame {
         jRBEstado = new javax.swing.JRadioButton();
         jTDocumento = new javax.swing.JTextField();
         jTApellido = new javax.swing.JTextField();
-        jTNombre = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
+        jTNombre = new javax.swing.JTextField();
         jBSalir = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
         jBGuardar = new javax.swing.JButton();
         jBNuevo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jDateFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        habilitarNuevo = new javax.swing.JRadioButton();
+        idAluOcul = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(java.awt.SystemColor.activeCaption);
@@ -113,10 +119,6 @@ public class formAlumno extends javax.swing.JInternalFrame {
         getContentPane().add(jTApellido);
         jTApellido.setBounds(324, 172, 142, 24);
 
-        jTNombre.setBackground(java.awt.Color.white);
-        getContentPane().add(jTNombre);
-        jTNombre.setBounds(324, 234, 142, 24);
-
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +127,10 @@ public class formAlumno extends javax.swing.JInternalFrame {
         });
         getContentPane().add(jbBuscar);
         jbBuscar.setBounds(506, 102, 80, 32);
+
+        jTNombre.setBackground(java.awt.Color.white);
+        getContentPane().add(jTNombre);
+        jTNombre.setBounds(324, 234, 142, 24);
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +171,18 @@ public class formAlumno extends javax.swing.JInternalFrame {
         jSeparator1.setBounds(167, 40, 456, 10);
         getContentPane().add(jDateFechaNacimiento);
         jDateFechaNacimiento.setBounds(400, 350, 260, 29);
+        getContentPane().add(habilitarNuevo);
+        habilitarNuevo.setBounds(550, 120, 10, 10);
+
+        idAluOcul.setBackground(java.awt.SystemColor.activeCaption);
+        idAluOcul.setForeground(java.awt.SystemColor.activeCaption);
+        getContentPane().add(idAluOcul);
+        idAluOcul.setBounds(370, 140, 0, 0);
+
+        jLabel1.setBackground(java.awt.SystemColor.activeCaption);
+        jLabel1.setForeground(java.awt.SystemColor.activeCaption);
+        jLabel1.setEnabled(false);
+        jLabel1.setFocusable(false);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 800, 600);
 
@@ -172,93 +190,107 @@ public class formAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
- //ANDA BIEN TERMINADO falta mostrar la fecha
+        //ANDA BIEN TERMINADO falta mostrar la fecha
         try {
             Alumno a = new Alumno();
             a = null;
+            jBGuardar.setEnabled(true);
             int dni = Integer.parseInt(jTDocumento.getText());
             AlumnoData listAlumno = new AlumnoData();
             a = listAlumno.buscarAlumnoPorDni(dni);
-            abilitarCampos();
+            habilitarCampos();
             jTApellido.setText(a.getApellido());
             jTNombre.setText(a.getNombre());
             jBEliminar.setEnabled(true);
-            //jDateFechaNacimiento.setDate(a.getFechaDeNacimiento());
+            jRBEstado.setSelected(a.isEstado());
+            idAluOcul.setText(a.getIdAlumno() + "");
             jDateFechaNacimiento.setDate(java.sql.Date.valueOf(a.getFechaDeNacimiento()));
 
-// jDFechaNacimiento.setDate(Date.valueOf(a.getFechaDeNacimiento())).toLocalDate;
             if (a.equals(null)) {
                 JOptionPane.showMessageDialog(null, "El alumno no existe ");
                 jTDocumento.requestFocus();
-               // jTDocumento.setText("");
+                desactivarCampos();
             }
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el número de documento");
             jTDocumento.requestFocus();
             limpiarCampos();
+        } catch (NullPointerException ex) {
+            jTDocumento.setText("");
         }
-            jTDocumento.requestFocus();
-           // jTDocumento.setText("");
+        jTDocumento.requestFocus();
+        // jTDocumento.setText("");
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
 
 //FUNCIONA TERMINADO
-        abilitarCampos();
+        habilitarCampos();
         limpiarCampos();
         jTDocumento.requestFocus();
         jTDocumento.setText("");
 
         jBGuardar.setEnabled(true);
-        jRBEstado.setEnabled(false);
+        //jRBEstado.setEnabled(false);
         jBEliminar.setEnabled(false);
         jBNuevo.setEnabled(false);
+        habilitarNuevo.setSelected(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
- //FUNCIONA  TERMINADO
         Alumno alumno = new Alumno();
         AlumnoData alumnoData = new AlumnoData();
+        if (!habilitarNuevo.isSelected()) {
+            alumno.setIdAlumno(Integer.valueOf(idAluOcul.getText()));
+            alumno.setDni(Integer.parseInt(jTDocumento.getText()));
+            alumno.setApellido(jTApellido.getText());
+            alumno.setNombre(jTNombre.getText());
+            alumno.setEstado(jRBEstado.isSelected());
+            LocalDate fecNac = jDateFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();// como declarar estas variables
+            alumno.setFechaDeNacimiento(fecNac);
+            alumnoData.modificarAlumno(alumno);
+            //JOptionPane.showMessageDialog(null, "Alumno " + alumno.getApellido() + " ha sido modificado. ");
+            habilitarNuevo.setSelected(false);
 
-        alumno.setDni(Integer.parseInt(jTDocumento.getText()));  //int dni, String apellido, String nombre, LocalDate fechaDeNaciemiento, boolean estado
-        alumno.setApellido(jTApellido.getText());
-        alumno.setNombre(jTNombre.getText());
-        alumno.setEstado(true);
-        LocalDate fecNac = jDateFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();// como declarar estas variables
-        alumno.setFechaDeNacimiento(fecNac);
-        alumnoData.guardarAlumno(alumno);
-        JOptionPane.showMessageDialog(null, "Alumno " + alumno.getApellido() + " guardado con exito. ");
-        limpiarCampos();
-        jTDocumento.requestFocus();
-        desactivarCampos();
-        jBNuevo.setEnabled(true);
+        } else {
+            alumno.setDni(Integer.parseInt(jTDocumento.getText()));
+            alumno.setApellido(jTApellido.getText());
+            alumno.setNombre(jTNombre.getText());
+            alumno.setEstado(jRBEstado.isSelected());
+            LocalDate fecNac = jDateFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();// como declarar estas variables
+            alumno.setFechaDeNacimiento(fecNac);
+            alumnoData.guardarAlumno(alumno);
+            //JOptionPane.showMessageDialog(null, "Alumno " + alumno.getApellido() + "ha sido guardado en la Base de Datos");
+            limpiarCampos();
+            jTDocumento.requestFocus();
+            limpiarCampos();
+            desactivarCampos();
+            jBNuevo.setEnabled(true);
+            habilitarNuevo.setSelected(false);
+        }
 
-     
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
- //ESTE funciona FALTA pulir
-        
-        
-          
+        //ESTE funciona FALTA pulir
+        int ok = JOptionPane.showConfirmDialog(null, "Desea eliminar al aulmno " + jTApellido.getText());
+        if (JOptionPane.OK_OPTION == ok) {
             int dni = Integer.parseInt(jTDocumento.getText());
             AlumnoData listAlumno = new AlumnoData();
             listAlumno.eliminarAlumno(dni);
-            abilitarCampos();
-            
+            habilitarCampos();
 
-        JOptionPane.showMessageDialog(null, "El alumno  a sido dado de baja ");
-       // limpiarCampos();
-        desactivarCampos();
-           jTDocumento.requestFocus();
-           jTDocumento.setText("");
-        
+            JOptionPane.showMessageDialog(null, "El alumno  a sido dado de baja ");
+            limpiarCampos();
+            desactivarCampos();
+            jTDocumento.requestFocus();
+            jTDocumento.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Alumno no borrado");
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jBEliminarActionPerformed
@@ -269,11 +301,10 @@ public class formAlumno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBSalirActionPerformed
 
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton habilitarNuevo;
+    private javax.swing.JLabel idAluOcul;
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNuevo;
@@ -293,25 +324,25 @@ public class formAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNombre;
     private javax.swing.JButton jbBuscar;
     // End of variables declaration//GEN-END:variables
-    public void desactivarCampos() {
 
+    public void desactivarCampos() {
         jTApellido.setEnabled(false);
         jTNombre.setEnabled(false);
-
+        jDateFechaNacimiento.setEnabled(false);
     }
 
-    public void abilitarCampos() {
+    public void habilitarCampos() {
         jTDocumento.setEnabled(true);
         jTNombre.setEnabled(true);
         jTApellido.setEnabled(true);
+        jDateFechaNacimiento.setEnabled(true);
     }
 
     public void limpiarCampos() {
         jTDocumento.setText("");
         jTNombre.setText("");
         jTApellido.setText("");
-
+        jDateFechaNacimiento.setCalendar(null);
+        jRBEstado.setSelected(false);
     }
-
-
 }

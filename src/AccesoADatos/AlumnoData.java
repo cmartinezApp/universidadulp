@@ -137,16 +137,12 @@ public class AlumnoData {
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaDeNacimiento()));
             ps.setInt(5, alumno.getIdAlumno());
-            int exito=ps.executeUpdate();
-            
-            if (exito ==1){
-                JOptionPane.showMessageDialog(null, "Modificado exitosamente. " );
-
-            }else {
-                 JOptionPane.showMessageDialog(null, "El alumno no existe. " );
-
-            
-        }} catch (SQLException ex) {
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Se modifico el Alumno " + alumno.getNombre());
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el alumno.");
+            }} catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, "Error al acceder a la atabla Alumnos " + ex.getMessage());
         }

@@ -6,8 +6,6 @@
 package vistas;
 
 import AccesoADatos.Conexion;
-import java.awt.Image;
-import java.awt.Toolkit;
 
 import static java.awt.image.ImageObserver.WIDTH;
 
@@ -27,6 +25,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         //Image img = Toolkit.getDefaultToolkit().getImage("C:\\Users\\USUARIO\\Documents\\GitHub\\universidadulp\\fondo.jpg");
         //escritorio.getBackground();
+        
     }
     
 
@@ -61,6 +60,8 @@ public class Menu extends javax.swing.JFrame {
 
         escritorio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         escritorio.setMinimumSize(new java.awt.Dimension(800, 600));
+
+        imagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/fondo1.jpg"))); // NOI18N
         escritorio.add(imagenFondo);
         imagenFondo.setBounds(3, 3, 800, 600);
 

@@ -6,6 +6,7 @@ import AccesoADatos.MateriaData;
 import Entidades.Alumno;
 import Entidades.Inscripcion;
 import Entidades.Materia;
+import com.sun.glass.events.KeyEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -18,24 +19,29 @@ import javax.swing.table.DefaultTableModel;
 public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
-
-    private AlumnoData a1;
-    private Alumno a;
-    private Materia mat;
-    private MateriaData matData;
-    private Inscripcion in;
-    private InscripcionData ins_data;
+    private AlumnoData a1 = new AlumnoData();
+    private Alumno a = new Alumno();
+    private Inscripcion ins = new Inscripcion();
+    private InscripcionData ins_data = new InscripcionData();
 
     /**
      * Creates new form Manipulacion_De_Notas
      */
     public Manipulacion_De_Notas() {
         initComponents();
-        this.setTitle("Carga de Notas");
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null); //Elimina encabezado de ventana
+        this.setTitle("Carga de Notas");
 
         cargarCombo();
         agregarTabla();
+
+        //carga datos del primer alumno del combo
+        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno());
+        modeloTabla.setRowCount(0);
+        for (Materia mat : materiasCursadas) {
+            // Agrega una fila con los datos de la materia
+            modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), ins_data.obtenerNota(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno(), mat.getIdMateria())});
+        }
 
     }
 
@@ -56,7 +62,10 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
         tabla1 = new javax.swing.JTable();
         BotonGuardar = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        nuevaNota = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,7 +91,7 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(ComboBox1);
-        ComboBox1.setBounds(380, 70, 213, 20);
+        ComboBox1.setBounds(380, 70, 213, 25);
 
         tabla1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         tabla1.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,6 +105,7 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla1.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 tabla1ComponentAdded(evt);
@@ -119,7 +129,7 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(BotonGuardar);
-        BotonGuardar.setBounds(220, 390, 82, 21);
+        BotonGuardar.setBounds(220, 450, 82, 31);
 
         BotonSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         BotonSalir.setText("Salir");
@@ -129,9 +139,32 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(BotonSalir);
-        BotonSalir.setBounds(460, 390, 80, 21);
+        BotonSalir.setBounds(460, 450, 80, 31);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Listado de Alumnos por Materias");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(240, 10, 287, 22);
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(200, 40, 390, 10);
+
+        nuevaNota.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        nuevaNota.setForeground(new java.awt.Color(0, 0, 0));
+        nuevaNota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nuevaNotaKeyTyped(evt);
+            }
+        });
+        getContentPane().add(nuevaNota);
+        nuevaNota.setBounds(350, 390, 60, 23);
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Ingrese la nueva Nota");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(320, 420, 130, 15);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -142,55 +175,55 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void ComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox1ActionPerformed
-        //Instanciamos cada Objeto a Utilizar
-        in = new Inscripcion();
-        matData = new MateriaData();
-        ins_data = new InscripcionData();
-        //Obtenemos el Alumno del ComboBox1
-        a = (Alumno) ComboBox1.getSelectedItem();
+
+        Inscripcion in = new Inscripcion();
+        MateriaData matData = new MateriaData();
 
         // Llamar al método obtenerMateriasCursadas para obtener la lista de materias cursadas para el alumno
-        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(a.getIdAlumno());
-
+        List<Materia> materiasCursadas = ins_data.obtenerMateriaCursada(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno());
         if (materiasCursadas != null) {
             modeloTabla.setRowCount(0);
             // Agregar las materias cursadas a la tabla
-            for (Materia mat : matData.listarMaterias()) {
+            for (Materia mat : materiasCursadas) {
                 // Agrega una fila con los datos de la materia
-                modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), in.getNota()});
+                modeloTabla.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), ins_data.obtenerNota(ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno(), mat.getIdMateria())});
             }
         }
-
     }//GEN-LAST:event_ComboBox1ActionPerformed
 
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
-
+        nuevaNota.setText(modeloTabla.getValueAt(tabla1.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tabla1MouseClicked
 
     private void tabla1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_tabla1ComponentAdded
     }//GEN-LAST:event_tabla1ComponentAdded
 
     private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
-        // Actualizar Nota
-        // Obtener el alumno seleccionado en el ComboBox
-        Alumno as = (Alumno) ComboBox1.getSelectedItem();
-        if (as != null) {
-            // Obtener el ID del alumno seleccionado
-            int idAlumnoSeleccionado = as.getIdAlumno();
+        double nota;
+        int idAl;
+        int idMat;
 
-            // Iterar sobre las filas de la tabla para obtener los datos de las materias y las notas
-            for (int fila = 0; fila < modeloTabla.getRowCount(); fila++) {
-                int idMateria = (int) modeloTabla.getValueAt(fila, 0);
-                double nota = Double.parseDouble(modeloTabla.getValueAt(fila, 2).toString());
-                // Aquí debes llamar al método de InscripcionData para actualizar la nota en la base de datos
-                ins_data.actualizarNota(idAlumnoSeleccionado, idMateria, nota);
-            }
-            // Mostrar un mensaje de éxito o realizar otras acciones necesarias
-            JOptionPane.showMessageDialog(this, "Notas guardadas correctamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un alumno antes de guardar las notas.");
+        try {
+            nota = Double.valueOf(nuevaNota.getText());
+            idAl = ComboBox1.getItemAt(ComboBox1.getSelectedIndex()).getIdAlumno();
+            idMat = Integer.valueOf(modeloTabla.getValueAt(tabla1.getSelectedRow(), 0).toString());
+
+            ins_data.actualizarNota(idAl, idMat, nota);
+            ComboBox1ActionPerformed(evt);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione una materia");
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "El alumno no está inscipto a ninguna materia");
         }
+
     }//GEN-LAST:event_BotonGuardarActionPerformed
+
+    private void nuevaNotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevaNotaKeyTyped
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0' || caracter > '9') && (caracter != KeyEvent.VK_BACKSPACE) && (caracter != '.' || nuevaNota.getText().contains("."))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nuevaNotaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -199,22 +232,19 @@ public class Manipulacion_De_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Alumno> ComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField nuevaNota;
     private javax.swing.JTable tabla1;
     // End of variables declaration//GEN-END:variables
     private void cargarCombo() {
-        a1 = new AlumnoData();
-
         List<Alumno> listaAlumnos = a1.listarAlumnos();
-
-        DefaultComboBoxModel<Alumno> modelo = new DefaultComboBoxModel<>();
         for (Alumno alumno : listaAlumnos) {
-            modelo.addElement(alumno);
+            ComboBox1.addItem(new Alumno(alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre()));
         }
-
-        ComboBox1.setModel(modelo);
     }
 
     private void agregarTabla() {

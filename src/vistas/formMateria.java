@@ -7,9 +7,11 @@ package vistas;
 
 import AccesoADatos.*; //Importa clases para conectarse y ejectuar consultas SQL
 import Entidades.*; //Enlaza con las clases de los objetos
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color; //Para generar color de fondo
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
+import java.util.Objects;
 
 /**
  *
@@ -30,6 +32,8 @@ public class formMateria extends javax.swing.JInternalFrame {
         campoAnio.setCursor(null);
         campoNombre.setFocusable(false);
         campoNombre.setCursor(null);
+        nuevoNombre.setVisible(false);
+        nuevoAnio.setVisible(false);
 
     }
 
@@ -66,7 +70,13 @@ public class formMateria extends javax.swing.JInternalFrame {
         campoCodigo.setFocusable(true);
         campoCodigo.setEnabled(true);
         campoCodigo.setCursor(Cursor.getPredefinedCursor(2));
+        nuevoNombre.setVisible(false);
+        nuevoAnio.setVisible(false);
+        labelEstado.setText("Activa/Desactivada");
+        labelEstado.setForeground(Color.black);
+                
     }
+
     //Instancio objeto Materia y MateriaData para usar en los métodos del formulario
     MateriaData mat = new MateriaData();
     Materia materia = new Materia();
@@ -98,6 +108,8 @@ public class formMateria extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         limpiarPantalla = new javax.swing.JButton();
+        nuevoAnio = new javax.swing.JLabel();
+        nuevoNombre = new javax.swing.JLabel();
 
         setBackground(java.awt.SystemColor.activeCaption);
         setBorder(null);
@@ -142,6 +154,9 @@ public class formMateria extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 campoCodigoKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCodigoKeyTyped(evt);
+            }
         });
         getContentPane().add(campoCodigo);
         campoCodigo.setBounds(264, 129, 144, 23);
@@ -163,6 +178,9 @@ public class formMateria extends javax.swing.JInternalFrame {
         campoAnio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 campoAnioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoAnioKeyTyped(evt);
             }
         });
         getContentPane().add(campoAnio);
@@ -232,9 +250,9 @@ public class formMateria extends javax.swing.JInternalFrame {
         botonSalir.setBounds(485, 514, 70, 31);
 
         labelEstado.setForeground(new java.awt.Color(0, 0, 0));
-        labelEstado.setText("Activa|Inactiva");
+        labelEstado.setText("Activa/Desactivada");
         getContentPane().add(labelEstado);
-        labelEstado.setBounds(264, 366, 82, 16);
+        labelEstado.setBounds(264, 366, 130, 16);
         getContentPane().add(jLabel5);
         jLabel5.setBounds(0, 0, 800, 0);
         getContentPane().add(jSeparator1);
@@ -249,6 +267,22 @@ public class formMateria extends javax.swing.JInternalFrame {
         getContentPane().add(limpiarPantalla);
         limpiarPantalla.setBounds(510, 170, 80, 32);
 
+        nuevoAnio.setBackground(java.awt.SystemColor.activeCaption);
+        nuevoAnio.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        nuevoAnio.setForeground(new java.awt.Color(153, 0, 0));
+        nuevoAnio.setText("* Ingrese el año de cursado");
+        nuevoAnio.setFocusable(false);
+        getContentPane().add(nuevoAnio);
+        nuevoAnio.setBounds(270, 280, 210, 13);
+
+        nuevoNombre.setBackground(java.awt.SystemColor.activeCaption);
+        nuevoNombre.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        nuevoNombre.setForeground(new java.awt.Color(153, 0, 0));
+        nuevoNombre.setText("* Ingrese el nombre de la nueva Materia");
+        nuevoNombre.setFocusable(false);
+        getContentPane().add(nuevoNombre);
+        nuevoNombre.setBounds(270, 210, 210, 13);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,38 +296,43 @@ public class formMateria extends javax.swing.JInternalFrame {
             int codigo = Integer.parseInt(campoCodigo.getText());
             //Convierte el código en int
             materia = mat.buscarMateria(codigo);//genera la busqueda de la materia
-            //Rellena los campos con la información que llegó de buscarMateria
-            JOptionPane.showMessageDialog(null, materia);
-            try {
-                campoNombre.setText(materia.getNombre());
-                campoAnio.setText(String.valueOf(materia.getAnioMateria()));
-                botonEstado.setSelected(materia.getEstado());
-            } catch (NullPointerException ex) {
-                limpiarPantalla();
-            }
+            if (!materia.getEstado().equals(null)) {
+                //Rellena los campos con la información que llegó de buscarMateria
+                try {
+                    campoNombre.setText(materia.getNombre());
+                    campoAnio.setText(String.valueOf(materia.getAnioMateria()));
+                    botonEstado.setSelected(materia.getEstado());
+                } catch (NullPointerException ex) {
+                    limpiarPantalla();
 
-            // Cambia leyenda debajo del boton de activa e inactiva
-            if (botonEstado.isSelected()) {
-                labelEstado.setText("Activa");
-                labelEstado.setForeground(Color.GREEN);
-            } else {
-                labelEstado.setText("Inactiva");
-                labelEstado.setForeground(Color.red);
-            }
+                }
 
-            //Habilita boton de guardar si están todos los campos completos
-            if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
-                botonGuardar.setEnabled(true);
-                botonEliminar.setEnabled(true);
-            }
+                // Cambia leyenda debajo del boton de activa e inactiva
+                if (botonEstado.isSelected()) {
+                    labelEstado.setText("Activa");
+                    labelEstado.setForeground(Color.GREEN);
+                } else {
+                    labelEstado.setText("Desactivada");
+                    labelEstado.setForeground(Color.red);
+                }
 
-            //Habilita campos para edición.
-            campoAnio.setFocusable(true);
-            campoAnio.setCursor(Cursor.getPredefinedCursor(2));
-            campoNombre.setFocusable(true);
-            campoNombre.setCursor(Cursor.getPredefinedCursor(2));
+                //Habilita boton de guardar si están todos los campos completos
+                if (!campoCodigo.getText().isEmpty() && !campoAnio.getText().isEmpty() && !campoNombre.getText().isEmpty()) {
+                    botonGuardar.setEnabled(true);
+                    botonEliminar.setEnabled(true);
+                }
+
+                //Habilita campos para edición.
+                campoAnio.setFocusable(true);
+                campoAnio.setCursor(Cursor.getPredefinedCursor(2));
+                campoNombre.setFocusable(true);
+                campoNombre.setCursor(Cursor.getPredefinedCursor(2));
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Ingrese un código para buscar");
+            limpiarPantalla();
+        }catch (NullPointerException ex){
+            limpiarPantalla();
         }
 
 
@@ -350,10 +389,8 @@ public class formMateria extends javax.swing.JInternalFrame {
         campoAnio.setCursor(Cursor.getPredefinedCursor(2));
         campoNombre.setFocusable(true);
         campoNombre.setCursor(Cursor.getPredefinedCursor(2));
-        campoNombre.setText("COMPLETAR");
-        campoNombre.setToolTipText("Ingrese el nombre de la materia nueva");
-        campoAnio.setText("COMPLETAR");
-        campoAnio.setToolTipText("Ingrese el año de cursado de la materia nueva");
+        nuevoNombre.setVisible(true);
+        nuevoAnio.setVisible(true);
         //campoCodigo.setFocusable(true);
         //campoCodigo.setCursor(null);
         campoCodigo.setText("");
@@ -364,6 +401,20 @@ public class formMateria extends javax.swing.JInternalFrame {
     private void limpiarPantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarPantallaActionPerformed
         limpiarPantalla();
     }//GEN-LAST:event_limpiarPantallaActionPerformed
+
+    private void campoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodigoKeyTyped
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0' || caracter > '9') && (caracter != KeyEvent.VK_BACKSPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCodigoKeyTyped
+
+    private void campoAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoAnioKeyTyped
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0' || caracter > '9') && (caracter != KeyEvent.VK_BACKSPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoAnioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -385,5 +436,7 @@ public class formMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelEstado;
     private javax.swing.JButton limpiarPantalla;
     private java.awt.Label nameTitle;
+    private javax.swing.JLabel nuevoAnio;
+    private javax.swing.JLabel nuevoNombre;
     // End of variables declaration//GEN-END:variables
 }
