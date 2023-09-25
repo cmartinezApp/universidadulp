@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import AccesoADatos.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -124,6 +125,11 @@ public class Vista_Ins extends javax.swing.JInternalFrame {
 
         Anular.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Anular.setText("Anular Inscripcion");
+        Anular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnularActionPerformed(evt);
+            }
+        });
 
         Salir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Salir.setText("Salir");
@@ -262,6 +268,7 @@ public class Vista_Ins extends javax.swing.JInternalFrame {
         //Guardamos la Inscripcion
         InscripcionData ins_data = new InscripcionData();
         ins_data.guardarInscripcion(in);
+        noInscriptoActionPerformed(evt);
     }//GEN-LAST:event_botonInscribirActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
@@ -291,6 +298,27 @@ public class Vista_Ins extends javax.swing.JInternalFrame {
         Inscripto.setSelected(false);
         noInscripto.setSelected(false);
     }//GEN-LAST:event_ComboBox1ActionPerformed
+
+    private void AnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnularActionPerformed
+        // Verificar si hay una fila seleccionada en la tabla
+        int filaSeleccionada = Tabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            // Obtener el ID de la materia seleccionada en la tabla
+            int idMateria = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+
+            //Instanciamos la InscripcionData
+            InscripcionData ins_data = new InscripcionData();
+
+            // Llamamos al método borrarInscripcion para anular la inscripción
+            ins_data.borrarInscripcion(a1.getIdAlumno(), idMateria);
+
+            // Volver a cargar las materias inscriptas después de la anulación
+            InscriptoActionPerformed(evt);
+        } else {
+            // Mostrar un mensaje de error si no se selecciona ninguna materia en la tabla
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una materia para anular la inscripción.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_AnularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
